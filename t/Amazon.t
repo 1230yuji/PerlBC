@@ -47,6 +47,14 @@ subtest '精算する' => sub {
 
     is $amazon->payoff('当日お急ぎ便', 'クレジットカード'), 3800, 'Perfect PHPを1個、通常配送、クレジット支払いでの合計金額を算出できること';
 
+    throws_ok { $amazon->payoff('明日お急ぎ便', 'クレジットカード') } qr/配送方法が正しくありません。/, '正しくない配送方法を入力すると、精算できないこと';
+
+    throws_ok { $amazon->payoff('通常配達', '出世払い') } qr/支払い方法が正しくありません。/, '正しくない支払い方法を入力すると、精算できないこと'
+};
+
+subtest '新たな商品の追加' => sub {
+    my $amazon = Amazon->new ();
+    ls $amazon->add_item('TEST-DRIVEN DEVELOPMENT', 3000, '2006/12', 0), 1, '商品の追加ができること';
 };
 
 done_testing;

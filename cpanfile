@@ -1,3 +1,4 @@
+requires 'Smart::Args';
 
 on 'test' => sub {
     requires 'Test::More';

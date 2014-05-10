@@ -1,19 +1,18 @@
-#!/usr/bin/env perl
+﻿#!/usr/bin/env perl
 
 use strict;
 use warnings;
 use Test::More;
 use Test::Exception;
 
-subtest '$B%b%8%e!<%k$,FI$_9~$a$k(B' => sub {
+subtest 'モジュールが読み込める' => sub {
     use_ok 'Amazon';
-}
+};
 
-subtest '$B%b%8%e!<%k$,;H$($k$3$H(B' => sub {
-    my $amazon = Amazon->use();
-    isa_ok $amazon;
-}
-
-#kosuki comment
+subtest 'モジュールが使えること' => sub {
+    my $amazon = Amazon->new();
+    isa_ok $amazon, 'Amazon';
+    can_ok $amazon, qw(new);
+};
 
 done_testing;

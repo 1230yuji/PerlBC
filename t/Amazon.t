@@ -14,4 +14,6 @@ subtest 'モジュールが使えること' => sub {
     isa_ok $amazon;
 }
 
+#kosuki comment
+
 done_testing;

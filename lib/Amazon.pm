@@ -22,8 +22,12 @@ sub add_cart {
         #warn Dumper $item;
         if($self->{items}{name} eq $name) {
             #一致していたらカートに入れる
-            $self->{cart}->{$item->{name}} = $item;
-
+            $self->{cart}->{$item->{name}} = {name => $name, num_purchases => $num_purchases};
+               
+            #在庫を減らす
+            $self->{items}{stock} -= $num_purchases;
+            #warn Dumper $self->{items};
+ 
             return 1;
         }else {
             die 'no such item';

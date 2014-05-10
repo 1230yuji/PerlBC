@@ -54,7 +54,7 @@ subtest '精算する' => sub {
 
 subtest '新たな商品の追加' => sub {
     my $amazon = Amazon->new ();
-    ls $amazon->add_item('TEST-DRIVEN DEVELOPMENT', 3000, '2006/12', 0), 1, '商品の追加ができること';
+    is $amazon->add_item('TEST-DRIVEN DEVELOPMENT', 3000, '2006/12', 0), 1, '商品の追加ができること';
 };
 
 done_testing;

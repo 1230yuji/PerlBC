@@ -79,4 +79,18 @@ sub payoff {
     return $amount;
 }
 
+sub add_item {
+    my($self, $add_name, $add_price, $add_release, $add_stock) = @_;
+
+    $self->{items}{$add_name} = {
+        name => $add_name,
+        price => $add_price,
+        release => $add_release,
+        stock => $add_stock
+    };
+
+    warn Dumper $self->{items};
+
+    return 1;
+}
 1;

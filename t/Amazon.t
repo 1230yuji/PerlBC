@@ -25,8 +25,9 @@ subtest 'ショッピングカートに追加できる' => sub {
 subtest 'ショッピングカート内の情報を見れる' => sub {
     my $amazon = Amazon->new();
     $amazon->add_cart('Perfect PHP', 1);
-    
-    is $amazon->get_cart, {name => 'Perfect PHP', num_purchases => 1}, 'カートの中身が見れること';
+    is_deeply $amazon->get_cart,
+    { 'Perfect PHP' => { name => 'Perfect PHP', num_purchases => 1 }},
+    'カートの中身が見れること';
 };
 
 

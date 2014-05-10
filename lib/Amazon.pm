@@ -38,9 +38,7 @@ sub add_cart {
 
 sub get_cart {
     my ( $self ) = shift;
-
-    warn $self->{cart};
-    return %{$self->{cart}};
+    return $self->{cart};
 }
 
 1;

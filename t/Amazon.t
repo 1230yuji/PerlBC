@@ -17,7 +17,9 @@ subtest 'モジュールが使えること' => sub {
 
 subtest 'ショッピングカートに追加できる' => sub {
     my $amazon = Amazon->new();
-    is $amazon->add_cart('Perfect PHP', 3), 1, 'Perfect PHPを1個購入できること';
+    is $amazon->add_cart('Perfect PHP', 1), 1, 'Perfect PHPを1個購入できること';
+
+    is $amazon->{items}{'Perfect PHP'}{stock} , 1, 'Perfect PHP の在庫が減っていること';
     
     throws_ok { $amazon->add_cart('Perfect Ruby', 3) } qr/no such item/, 'Perfect Rubyを購入しようとすると、買えないこと';
 };

@@ -31,16 +31,22 @@ subtest 'ショッピングカート内の情報を見れる' => sub {
     my $amazon = Amazon->new();
     $amazon->add_cart('Perfect PHP', 1);
     is_deeply $amazon->get_cart,
-    { 'Perfect PHP' => { name => 'Perfect PHP', num_purchases => 1 }},
+    { 'Perfect PHP' => {
+            name => 'Perfect PHP',
+            price => 3600,
+            release => '2010/11',
+            num_purchases => 1
+        }
+    },
     'カートの中身が見れること';
 };
 
-#subtest '精算する' => sub {
-#    my $amazon = Amazon->new();
-#    $amazon->add_cart('Perfect PHP', 1);
+subtest '精算する' => sub {
+    my $amazon = Amazon->new();
+    $amazon->add_cart('Perfect PHP', 1);
 
-#    is $amazon->payoff('通常配達', 'クレジットカード'), 3600, 'Perfect PHPを1個、通常配送、クレジット支払いでの合計金額を算出できること';
+    is $amazon->payoff('当日お急ぎ便', 'クレジットカード'), 3800, 'Perfect PHPを1個、通常配送、クレジット支払いでの合計金額を算出できること';
 
-#};
+};
 
 done_testing;

@@ -9,7 +9,23 @@ sub new {
 
     bless{
         cart => {},
-        items => {'Perfect PHP' => {name => 'Perfect PHP',  price => 3600 , release => '2010/11', stock => 2 }}
+        items => {
+            'Perfect PHP' => {
+                name    => 'Perfect PHP',
+                price   => 3600 ,
+                release => '2010/11',
+                stock   => 2,
+            }
+        },
+        deliveries => {
+            '通常配達'     => 0,
+            '当日お急ぎ便' => 200,
+        },
+        payments => {
+            'クレジットカード'  => 1,
+            '代金引換'          => 1,
+            'コンビニ・ATM払い' => 1,
+        },
     }, $class;
 }
 
@@ -24,7 +40,12 @@ sub add_cart {
             }
 
             #一致していたらカートに入れる
-            $self->{cart}->{$item_name} = {name => $name, num_purchases => $num_purchases};
+            $self->{cart}{$item_name} = {
+                name => $name,
+                price => $self->{items}{$item_name}{price},
+                release => $self->{items}{$item_name}{release},
+                num_purchases => $num_purchases
+            };
                
             #在庫を減らす
             $self->{items}{$item_name}{stock} -= $num_purchases;
@@ -41,10 +62,21 @@ sub get_cart {
     return $self->{cart};
 }
 
-
-sub pay_off {
-             
+sub payoff {
+    my ($self, $delivery , $payment) = @_;
+    my $amount = 0;
+    if (defined $self->{deliveries}{$delivery}) {
+        $amount += $self->{deliveries}{$delivery};
+    }
+    else {
+        die '配送方法が正しくありません。';
+    }
+    die '支払い方法が正しくありません。' unless defined $self->{payments}{$payment};
+    
+    for my $item_name ( keys $self->{cart} ) {
+        $amount += $self->{cart}{$item_name}{price} * $self->{cart}{$item_name}{num_purchases};
+    }
+    return $amount;
 }
-
 
 1;

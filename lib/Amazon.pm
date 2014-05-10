@@ -8,4 +8,8 @@ sub new {
     bless{}, $class;
 }
 
+sub add_cart {
+    return 1;
+}
+
 1;
